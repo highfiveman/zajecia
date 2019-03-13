@@ -11,11 +11,12 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private StringBuilder equation = new StringBuilder();
-    private int lengthOfEquation = equation.length() - 1;
-    private void addToDataBase(){dataBase.insertData(equation.toString() + " = " + result());
-    }
     private DataBaseCalculator dataBase = new DataBaseCalculator(this);
 
+    private void addToDataBase()
+    {
+        dataBase.insertData(equation.toString() + " = " + result());
+    }
 
     private double result() {
         Expression expression = new ExpressionBuilder(equation.toString()).build();
@@ -41,13 +42,16 @@ public class MainActivity extends AppCompatActivity {
     }
     public void addToEquation(View view)
     {
-     TextView button = (TextView) view;
-     String character = button.getText().toString();
-     if (lengthOfEquation > 13){
+        int lengthEquation = equation.length();
+        TextView button = (TextView) view;
+        String character = button.getText().toString();
+
+        if (lengthEquation > 13){
          return;
-     }
-     equation.append(character);
-     refreshText();
+        }
+
+        equation.append(character);
+        refreshText();
     }
 
     public void calculateEquation(View view) {
@@ -76,11 +80,13 @@ public class MainActivity extends AppCompatActivity {
              }
 
     }
+
     public void clearAll(View view)
     {
         equation.delete(0, equation.length());
         refreshText();
     }
+
     public void openHistory(View view) {
         Intent intent = new Intent(this, HistoryActivity.class);
         startActivity(intent);
